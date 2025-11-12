@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Semana9Caso1.Models;
+using Semana9Caso1.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Semana9Caso1.Controllers
 {
     public class LibrosController : Controller
     {
-        private static List<Libro> _libros = new List<Libro>();
+        private readonly LibrosRepo _repositorio = new LibrosRepo();
 
         public IActionResult Index()
         {
-            return View(_libros);
+            var libros = _repositorio.ObtenerTodos();
+            return View(libros);
         }
 
         public IActionResult Create()
@@ -37,21 +38,17 @@ namespace Semana9Caso1.Controllers
             if (libro.NumPag <= 0)
                 ModelState.AddModelError("NumPag", "El número de páginas debe ser mayor que 0.");
 
-            if (_libros.Any(l => l.Cod.Equals(libro.Cod, StringComparison.OrdinalIgnoreCase)))
-                ModelState.AddModelError("Cod", "El código interno ya existe en el registro.");
-
             if (!ModelState.IsValid)
                 return View(libro);
 
-            AgregarLibro(libro);
+            if (!_repositorio.Agregar(libro))
+            {
+                ModelState.AddModelError("Cod", "El código interno ya existe en el registro.");
+                return View(libro);
+            }
 
             TempData["Mensaje"] = "Libro agregado exitosamente.";
             return RedirectToAction(nameof(Index));
-        }
-
-        private void AgregarLibro(Libro libro)
-        {
-            _libros.Add(libro);
         }
 
         private List<string> ObtenerCategorias()
@@ -69,4 +66,6 @@ namespace Semana9Caso1.Controllers
         }
     }
 }
+
+
 
