@@ -20,34 +20,53 @@
         <input asp-for="Autor" class="form-control" />
         <span class="text-danger" asp-validation-for="Autor"></span>
     </div>
-    @*Categoría *********************@
+    @*Categoría*@
     <div class="mb-3">
-        <label asp-for="Titulo" class="form-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span class="text-danger" asp-validation-for="Titulo"></span>
+        <label asp-for="Categoria" class="form-label"></label>
+        <select asp-for="Categoria" class="form-select">
+            @if (ViewBag.Categorias is IEnumerable<string> categ)
+            {
+                foreach (var c in categ)
+                {
+                    if (Model?.Categoria == c)
+                    {
+                        <option value="@c" selected="selected">@c</option>
+                    }
+                    else
+                    {
+                        <option value="@c">@c</option>
+                    }
+                }
+            }
+        </select>
+        <span class="text-danger" asp-validation-for="Categoria"></span>
     </div>
     @*AñoPublic*@
     <div class="mb-3">
-        <label asp-for="Titulo" class="form-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span class="text-danger" asp-validation-for="Titulo"></span>
+        <label asp-for="AñoPublic" class="form-label"></label>
+        <input asp-for="AñoPublic" class="form-control" />
+        <span class="text-danger" asp-validation-for="AñoPublic"></span>
     </div>
-    @*Titulo*@
+    @*NumPag*@
     <div class="mb-3">
-        <label asp-for="Titulo" class="form-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span class="text-danger" asp-validation-for="Titulo"></span>
+        <label asp-for="NumPag" class="form-label"></label>
+        <input asp-for="NumPag" class="form-control" />
+        <span class="text-danger" asp-validation-for="NumPag"></span>
     </div>
-    @*Titulo*@
+    @*Cod*@
     <div class="mb-3">
-        <label asp-for="Titulo" class="form-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span class="text-danger" asp-validation-for="Titulo"></span>
+        <label asp-for="Cod" class="form-label"></label>
+        <input asp-for="Cod" class="form-control" />
+        <span class="text-danger" asp-validation-for="Cod"></span>
     </div>
-    @*Titulo*@
-    <div class="mb-3">
-        <label asp-for="Titulo" class="form-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span class="text-danger" asp-validation-for="Titulo"></span>
+    @*Disponible*@
+    <div class="form-check mb-3">
+        <input asp-for="Disponible" class="form-check-input" />
+        <label asp-for="Disponible" class="form-check-label"></label>
+        <span class="text-danger" asp-validation-for="Disponible"></span>
     </div>
+
+    <button type="submit" class="btn btn-success">Registrar</button>
+    
+    <a class="btn btn-secondary" asp-action="Index">Volver</a>
 </form>
