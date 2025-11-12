@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Semana9Caso1.Models.Libro>
+
+@{
+    ViewData["Title"] = "Libros";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["Mensaje"] is string msg)
+{
+    <div class="alert alert-success" role="alert">
+        @msg
+    </div>
+}
+
+<p>
+    <a class="btn btn-primary" asp-controller="Libros" asp-action="Create">Nuevo Libro</a>
+</p>
+
+@if (!Model.Any())
+{
+    <p>No hay libros registrados de momento</p>
+}
+else
+{
+    <table >
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th>Categoria</th>
+                <th>AñoPublicacion</th>
+                <th>Paginas</th>
+                <th>Codigo</th>
+                <th>Disponible</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var l in Model)
+            {
+                <tr>
+                    <td>@l.Titulo</td>
+                    <td>@l.Autor</td>
+                    <td>@l.Categoria</td>
+                    <td>@l.AñoPublic</td>
+                    <td>@l.NumPag</td>
+                    <td>@l.Cod</td>
+                    <td>@(l.Disponible ? "Sí" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

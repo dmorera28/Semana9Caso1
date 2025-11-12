@@ -1,0 +1,53 @@
+﻿@model Semana9Caso1.Models.Libro
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Libro";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @*Titulo*@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+    @*Autor*@
+    <div class="mb-3">
+        <label asp-for="Autor" class="form-label"></label>
+        <input asp-for="Autor" class="form-control" />
+        <span class="text-danger" asp-validation-for="Autor"></span>
+    </div>
+    @*Categoría *********************@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+    @*AñoPublic*@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+    @*Titulo*@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+    @*Titulo*@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+    @*Titulo*@
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Titulo"></span>
+    </div>
+</form>
