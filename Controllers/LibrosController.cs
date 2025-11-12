@@ -3,64 +3,70 @@ using Semana9Caso1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Semana9Caso1.Controllers
 {
     public class LibrosController : Controller
     {
-        private static List<Libro> listaLibros = new List<Libro>();
+        private static List<Libro> _libros = new List<Libro>();
 
-        [HttpGet]
         public IActionResult Index()
         {
-            return View(listaLibros);
+            return View(_libros);
         }
 
-        [HttpGet]
-        public IActionResult Crear()
+        public IActionResult Create()
         {
+            ViewBag.Categorias = ObtenerCategorias();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Crear(Libro nuevoLibro)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Libro libro)
         {
-            if (string.IsNullOrWhiteSpace(nuevoLibro.Titulo) || nuevoLibro.Titulo.Length < 3)
-                ModelState.AddModelError("Titulo", "El título es obligatorio y debe tener al menos 3 caracteres");
+            ViewBag.Categorias = ObtenerCategorias();
 
-            if (string.IsNullOrWhiteSpace(nuevoLibro.Autor) || nuevoLibro.Autor.Length < 3)
-                ModelState.AddModelError("Autor", "El autor es obligatorio y debe tener al menos 3 caracteres");
+            if (libro.Categoria == "Seleccione...")
+                ModelState.AddModelError("Categoria", "Debe seleccionar una categoría válida.");
 
-            if (string.IsNullOrWhiteSpace(nuevoLibro.Categoria) || nuevoLibro.Categoria == "Seleccione...")
-                ModelState.AddModelError("Categoria", "Debe seleccionar una categoría válida");
+            int añoActual = DateTime.Now.Year;
+            if (libro.AñoPublic.Year < 1900 || libro.AñoPublic.Year > añoActual)
+                ModelState.AddModelError("AñoPublic", $"El año debe estar entre 1900 y {añoActual}.");
 
-            if (nuevoLibro.AñoPublic.Year < 1900 || nuevoLibro.AñoPublic.Year > DateTime.Now.Year)
-                ModelState.AddModelError("AñoPublic", "El año de publicación debe estar entre 1900 y el año actual, y no puede ser futuro");
+            if (libro.NumPag <= 0)
+                ModelState.AddModelError("NumPag", "El número de páginas debe ser mayor que 0.");
 
-            if (nuevoLibro.NumPag <= 0)
-                ModelState.AddModelError("NumPag", "El número de páginas debe ser mayor que 0");
+            if (_libros.Any(l => l.Cod.Equals(libro.Cod, StringComparison.OrdinalIgnoreCase)))
+                ModelState.AddModelError("Cod", "El código interno ya existe en el registro.");
 
-            if (string.IsNullOrWhiteSpace(nuevoLibro.Cod))
+            if (!ModelState.IsValid)
+                return View(libro);
+
+            AgregarLibro(libro);
+
+            TempData["Mensaje"] = "Libro agregado exitosamente.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void AgregarLibro(Libro libro)
+        {
+            _libros.Add(libro);
+        }
+
+        private List<string> ObtenerCategorias()
+        {
+            return new List<string>
             {
-                ModelState.AddModelError("Cod", "El código interno es obligatorio");
-            }
-            else
-            {
-                if (!Regex.IsMatch(nuevoLibro.Cod, @"^LIB-\d{3}$"))
-                    ModelState.AddModelError("Cod", "El código debe tener el formato LIB-###");
-
-                if (listaLibros.Any(l => l.Cod == nuevoLibro.Cod))
-                    ModelState.AddModelError("Cod", "El código ya existe en la lista");
-            }
-
-            if (ModelState.IsValid)
-            {
-                listaLibros.Add(nuevoLibro);
-                return RedirectToAction("Index");
-            }
-
-            return View(nuevoLibro);
+                "Seleccione...",
+                "Drama",
+                "Acción",
+                "Terror",
+                "Romance",
+                "Comedia",
+                "Otro"
+            };
         }
     }
 }
+
