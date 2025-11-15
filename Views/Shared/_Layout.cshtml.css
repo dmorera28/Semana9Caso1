@@ -46,3 +46,56 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Estilos tipo libro */
+:root{
+  --book-bg: #efe3d6; /* marrón muy claro / papel envejecido */
+  --book-spine: #b8860b; /* lomo más oscuro (goldenrod) */
+  --page-shadow: rgba(0,0,0,0.06);
+}
+
+/* Fondo general tipo papel */
+.book-bg {
+  background-color: var(--book-bg);
+  /* líneas sutiles que simulan textura de página */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 24px,
+    rgba(0,0,0,0.02) 25px
+  );
+  background-attachment: fixed;
+  color: #2b2b2b;
+  min-height: 100vh;
+}
+
+/* Marco tipo libro alrededor del contenido */
+.book-container {
+  background: linear-gradient(180deg, #fffdf8 0%, #f6efe6 100%);
+  border-left: 8px solid var(--book-spine); /* lomo del libro */
+  border-radius: 6px;
+  box-shadow: 0 8px 24px var(--page-shadow);
+  padding: 1.6rem;
+  margin-top: 1rem;
+}
+
+/* Ajustes sutiles para navbar y badge */
+.navbar-brand .badge {
+  font-size: 0.88rem;
+  vertical-align: middle;
+  opacity: 0.95;
+}
+
+/* Mejor contraste para enlaces en la navegación sobre el fondo claro */
+.nav-link {
+  color: #2b2b2b !important;
+}
+
+/* Opcional: estilo de tabla más acorde a libro */
+table {
+  background: transparent;
+}
+table thead th {
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+  color: #3a3a3a;
+}
