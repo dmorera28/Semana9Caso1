@@ -39,63 +39,85 @@ button.accept-policy {
   line-height: inherit;
 }
 
+/* FOOTER: posición en flujo normal y altura estándar */
 .footer {
-  position: absolute;
+  position: fixed;      /* fijado a la ventana */
+  left: 0;
+  right: 0;
   bottom: 0;
+  height: 60px;         /* altura estándar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background: rgba(255,255,255,0.03); /* ligero fondo/transparencia opcional */
+  color: rgba(0,0,0,0.65);
+  z-index: 1030;        /* por encima del contenido */
+  box-sizing: border-box;
+}
+
+/* Asegura que el contenido interno del footer se centre correctamente */
+.footer .container {
+  max-width: 1140px;
   width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-/* Estilos tipo libro */
-:root{
-  --book-bg: #efe3d6; /* marrón muy claro / papel envejecido */
-  --book-spine: #b8860b; /* lomo más oscuro (goldenrod) */
-  --page-shadow: rgba(0,0,0,0.06);
-}
+/* Elimina cualquier regla anterior que dejara el footer absolute */
 
-/* Fondo general tipo papel */
-.book-bg {
-  background-color: var(--book-bg);
-  /* líneas sutiles que simulan textura de página */
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 24px,
-    rgba(0,0,0,0.02) 25px
-  );
-  background-attachment: fixed;
-  color: #2b2b2b;
-  min-height: 100vh;
-}
-
-/* Marco tipo libro alrededor del contenido */
-.book-container {
-  background: linear-gradient(180deg, #fffdf8 0%, #f6efe6 100%);
-  border-left: 8px solid var(--book-spine); /* lomo del libro */
-  border-radius: 6px;
-  box-shadow: 0 8px 24px var(--page-shadow);
-  padding: 1.6rem;
-  margin-top: 1rem;
-}
-
-/* Ajustes sutiles para navbar y badge */
-.navbar-brand .badge {
-  font-size: 0.88rem;
-  vertical-align: middle;
-  opacity: 0.95;
-}
-
-/* Mejor contraste para enlaces en la navegación sobre el fondo claro */
-.nav-link {
-  color: #2b2b2b !important;
-}
-
-/* Opcional: estilo de tabla más acorde a libro */
-table {
-  background: transparent;
-}
-table thead th {
-  border-bottom: 2px solid rgba(0,0,0,0.08);
-  color: #3a3a3a;
-}
+    /* Estilos tipo libro */
+    :root{
+      --book-bg: #efe3d6; /* marrón muy claro / papel envejecido */
+      --book-spine: #b8860b; /* lomo más oscuro (goldenrod) */
+      --page-shadow: rgba(0,0,0,0.06);
+    }
+    
+    /* Fondo general tipo papel */
+    .book-bg {
+      background-color: var(--book-bg);
+      /* líneas sutiles que simulan textura de página */
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 24px,
+        rgba(0,0,0,0.02) 25px
+      );
+      background-attachment: fixed;
+      color: #2b2b2b;
+      min-height: 100vh;
+    }
+    
+    /* Marco tipo libro alrededor del contenido */
+    .book-container {
+      background: linear-gradient(180deg, #fffdf8 0%, #f6efe6 100%);
+      border-left: 8px solid var(--book-spine); /* lomo del libro */
+      border-radius: 6px;
+      box-shadow: 0 8px 24px var(--page-shadow);
+      padding: 1.6rem;
+      margin-top: 1rem;
+    }
+    
+    /* Ajustes sutiles para navbar y badge */
+    .navbar-brand .badge {
+      font-size: 0.88rem;
+      vertical-align: middle;
+      opacity: 0.95;
+    }
+    
+    /* Mejor contraste para enlaces en la navegación sobre el fondo claro */
+    .nav-link {
+      color: #2b2b2b !important;
+    }
+    
+    /* Estilo de tabla más acorde a libro */
+    table {
+      background: transparent;
+    }
+    table thead th {
+      border-bottom: 2px solid rgba(0,0,0,0.08);
+      color: #3a3a3a;
+    }

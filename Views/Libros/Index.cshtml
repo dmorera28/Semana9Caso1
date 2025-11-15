@@ -4,7 +4,7 @@
     ViewData["Title"] = "Libros";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-dark">@ViewData["Title"]</h1>
 
 @if (TempData["Mensaje"] is string msg)
 {
@@ -14,12 +14,14 @@
 }
 
 <p>
-    <a class="btn btn-primary" asp-controller="Libros" asp-action="Create">Nuevo Libro</a>
+    <a class="btn btn-primary" asp-controller="Libros" asp-action="Create">
+        <i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Nuevo Libro
+    </a>
 </p>
 
 @if (!Model.Any())
 {
-    <p>No hay libros registrados de momento</p>
+    <p class="text-dark">No hay libros registrados de momento</p>
 }
 else
 {

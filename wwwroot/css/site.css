@@ -17,15 +17,107 @@ html {
   min-height: 100%;
 }
 
+/* Añadimos padding inferior igual a la altura del footer para que el contenido no quede oculto */
 body {
-  margin-bottom: 60px;
+  padding-bottom: 60px; /* mismo valor que .footer height */
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* --- Forzar fondo marrón global (añadir al final de site.css) --- */
+:root{
+  --site-book-bg: #5a3f2a;      /* marrón oscuro */
+  --site-book-contrast: #fffdf8;
+  --site-book-spine: #b8860b;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Fondo global: aplica a toda la ventana y con prioridad */
+html, body {
+  height: 100% !important;
+  background-color: var(--site-book-bg) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #f7f1ea !important;
+}
+
+/* Mantener textura si usas la clase book-bg en el body */
+body.book-bg {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 24px,
+    rgba(0,0,0,0.03) 25px
+  ) !important;
+  background-attachment: fixed !important;
+}
+
+/* Integrar navbar sobre fondo oscuro */
+.navbar, .bg-white {
+  background-color: rgba(255,255,255,0.06) !important;
+  border-bottom-color: rgba(255,255,255,0.06) !important;
+}
+.nav-link, .navbar-brand {
+  color: #fbf6ef !important;
+}
+
+/* Reservar espacio para footer fijo si usas uno (opcional) */
+/* body { padding-bottom: 60px !important; } */
+
+/* Contraste: forzar texto oscuro dentro del "libro" */
+.book-container h1,
+.book-container h1[class],
+.book-container h2,
+.book-container h3,
+.book-container h4,
+.book-container .display-1,
+.book-container .display-2,
+.book-container .display-3,
+.book-container .display-4,
+.book-container .lead,
+.book-container label,
+.book-container .form-label,
+.book-container .form-check-label {
+  color: #222426 !important; /* oscuro legible sobre papel claro */
+}
+
+/* Inputs y selects dentro del libro: texto legible */
+.book-container .form-control,
+.book-container input,
+.book-container textarea,
+.book-container select {
+  color: #2b2b2b !important;
+  background-color: transparent !important;
+}
+
+/* Asegurar links dentro del libro tomen color oscuro */
+.book-container a {
+  color: #1b6ec2 !important;
+}
+
+/* Si usas clases de texto (bootstrap) dentro del libro, forzarlas */
+.book-container .text-white,
+.book-container .text-light {
+  color: inherit !important;
+}
+
+/* Ajustes puntuales: botones y links dentro del libro */
+.book-container .btn-primary,
+.book-container .btn {
+  color: #fff !important;
+  background-color: #1b6ec2 !important;
+  border-color: #1861ac !important;
+}
+
+/* Si hay títulos fuera del "libro" (sobre fondo marrón), mantenerlos claros */
+body.book-bg h1,
+body.book-bg h2,
+body.book-bg h3 {
+  color: #fbf6ef !important;
+}
+
+/* Formularios: asegurar legibilidad de placeholders/inputs dentro del libro */
+.book-container .form-control,
+.book-container input,
+.book-container textarea,
+.book-container select {
+  color: #2b2b2b !important;
+  background-color: transparent !important;
 }
